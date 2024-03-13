@@ -1,9 +1,9 @@
 clc;
 clear all;
 
-file = 'D:/robot_dynamic_identify/generate_trajectory/position.txt';
+file = 'D:/roake/roake_param_identify/build/position.txt';
 
-file_da = 'D:/robot_dynamic_identify/generate_trajectory/torque.txt';
+file_da = 'D:/roake/roake_param_identify/build/torque.txt';
 
 
 fid = fopen(file, 'r');
