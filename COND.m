@@ -17,10 +17,7 @@ qmin = [-165;-115;-165;-115;-165;-115;-355]/180*pi;   %qmin = -ones(6,1)*120/180
 qmax = [165;115;165;115;165;115;355]/180*pi; %qmax = ones(6,1)*120/180*pi;
 dqmax = [2.175;2.175;2.175;2.175;2.610;2.610;2.610]; %/180*pi;%dqmax = ones(6,1)*80/180*pi; %dqmax = ones(6,1)*40/180*pi; 
 ddqmax = [15;7.5;10;10;15;15;20]; %/180*pi;%ddqmax = ones(6,1)*24/180*pi; %ddqmax = ones(6,1)*12/180*pi;
-% qmin = -ones(7,1)*120/180*pi;
-% qmax = ones(7,1)*120/180*pi;
-% dqmax = ones(7,1)*80/180*pi; %dqmax = ones(6,1)*40/180*pi; 
-% ddqmax = ones(7,1)*24/180*pi; %ddqmax = ones(6,1)*12/180*pi; 
+
 q_offset = (qmin+qmax)/2; %角度约束中点
 
 %% 计算回归矩阵条件数
@@ -73,8 +70,7 @@ K_total = [K_total(:,10), K_total(:,12:13), K_total(:,15:end)];
 %K_total1 = K_total(:,find(sum(abs(K_total))'>sqrt(eps)));
 %进一步qr分解，得最小参数集回归矩阵KK
 [~ , ~, P] = qr(K_total);
-nd = rank(K_total); 
-% nd = 36; %nd = rank(K_total); 
+nd = rank(K_total); % nd = 36;; 
 KK_total = K_total*P;
 KK = KK_total(:,1:nd);
 %计算最小参数集回归矩阵KK的条件数
@@ -99,10 +95,10 @@ if((abs(q(:,1)*180/pi)<1).*(abs(dq(:,1)*180/pi)<1).*(abs(ddq(:,1)*180/pi)<1)... 
     fprintf(fid,'\n');
     fclose(fid);
 
-%     if(cond_val < cond_max_val)
-%         save(savepath,'q','dq','ddq','x','t');
-%         ni=input('条件数小于100，继续请输入一个数字，并按回车：');
-%         pause;
-%     end
+    if(cond_val < cond_max_val)
+        save(savepath,'q','dq','ddq','x','t');
+        ni=input('条件数小于100，继续请输入一个数字，并按回车：');
+        pause;
+    end
 end
 end
